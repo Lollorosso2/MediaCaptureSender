@@ -15,6 +15,10 @@ author = "agent"
 task = "workflow.run"
 args = "MediaCaptureApp"
 
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Package"
+
 [[workflows.workflow]]
 name = "MediaCaptureApp"
 author = "agent"
@@ -29,6 +33,20 @@ task = "packager.installForAll"
 task = "shell.exec"
 args = "cd MediaCaptureApp && node simple-build.js && serve -s dist -l 5000"
 waitForPort = 5000
+
+[[workflows.workflow]]
+name = "Package"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
+[[workflows.workflow.tasks]]
+task = "packager.installForAll"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd MediaCaptureApp && node create-download-package.js && cp -r dist/MediaCaptureApp-package.zip /tmp/MediaCaptureApp-package.zip && echo \"Package ready at /tmp/MediaCaptureApp-package.zip\""
 
 [deployment]
 run = ["sh", "-c", "cd MediaCaptureApp && node simple-build.js && serve -s dist -l 5000"]
