@@ -27,11 +27,11 @@ task = "packager.installForAll"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "cd MediaCaptureApp && npx expo start --web --port=5000"
+args = "cd MediaCaptureApp && EXPO_PUBLIC_PORT=5000 npx expo start --web --port=5000"
 waitForPort = 5000
 
 [deployment]
-run = ["sh", "-c", "cd MediaCaptureApp && npx expo start --web --port=5000"]
+run = ["sh", "-c", "cd MediaCaptureApp && EXPO_PUBLIC_PORT=5000 npx expo start --web --port=5000"]
 
 [[ports]]
 localPort = 5000
