@@ -191,6 +191,13 @@ MediaCaptureApp/
 - `npm run build:expo` - Build using Expo's build service
 - `npm run build:simple` - Build for web deployment
 
+## Recent Updates
+
+- Fixed API implementation by replacing axios with native fetch API for better compatibility
+- Fixed Android build issue with missing splash screen resource
+- Improved error handling in network requests
+- Updated dependency management for better build stability
+
 ## Troubleshooting
 
 If you encounter issues:
@@ -201,6 +208,7 @@ If you encounter issues:
 - If using the development build, make sure your device and computer are on the same network
 - For iOS builds, verify your Apple Developer account is active and properly configured
 - For errors about "owner" or "appVersionSource", refer to the [EAS Account Setup Guide](./EAS_ACCOUNT_SETUP.md)
+- For the "resource splashscreen_background not found" error, ensure the Android colors.xml file exists in values folder
 
 For more detailed troubleshooting:
 - Android issues: [Android Installation Guide](./ANDROID_INSTALLATION_DETAILED.md#troubleshooting-common-issues)
