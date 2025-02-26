@@ -1,7 +1,14 @@
-const createExpoWebpackConfigAsync = require('@expo/webpack-config');
+const { createWebpackConfigAsync } = require('@expo/webpack-config');
 
-module.exports = async function (env, argv) {
-  const config = await createExpoWebpackConfigAsync(env, argv);
+module.exports = async function(env, argv) {
+  const config = await createWebpackConfigAsync({
+    ...env,
+    babel: {
+      dangerouslyAddModulePathsToTranspile: [
+        // Add any modules that need transpiling here
+      ]
+    }
+  }, argv);
 
   // Override the devServer config
   if (config.devServer) {
@@ -12,6 +19,6 @@ module.exports = async function (env, argv) {
       'Access-Control-Allow-Origin': '*'
     };
   }
-  
+
   return config;
 };
