@@ -1,76 +1,88 @@
 # EAS Build Guide for Media Capture App
 
-This guide will walk you through building a standalone APK for the Media Capture App using Expo's EAS Build service.
+This guide explains how to build the Media Capture App for Android and iOS using Expo Application Services (EAS).
 
 ## Prerequisites
 
-- Node.js (v14 or newer)
-- npm (v6 or newer)
-- An Expo account (free to create)
-- Internet connection
+- Node.js (v18 or newer)
+- npm (v9 or newer)
+- An Expo account (see `EAS_ACCOUNT_SETUP.md`)
+- Git installed (see `EAS_GIT_INSTRUCTIONS.md`)
+- For iOS builds: An Apple Developer account
 
-## Step 1: Set Up Your Environment
+## Building for Android
 
-1. Install the EAS CLI globally:
-   ```
-   npm install -g eas-cli
-   ```
+1. **Install dependencies**
 
-2. Log in to your Expo account:
-   ```
-   eas login
-   ```
-
-   If you don't have an Expo account, create one at [expo.dev](https://expo.dev).
-
-## Step 2: Configure Your Project
-
-1. In your project directory, install dependencies:
-   ```
+   ```bash
    npm install
    ```
 
-2. The project already includes an `eas.json` file configured for Android builds.
+2. **Install EAS CLI**
 
-## Step 3: Build the APK
+   ```bash
+   npm install -g eas-cli
+   ```
 
-### Option A: Internal Distribution (fastest)
+3. **Log in to your Expo account**
 
-This creates a development build that can be installed directly on your device:
+   ```bash
+   eas login
+   ```
 
-```
-eas build -p android --profile preview
-```
+4. **Build an APK (Preview build)**
 
-### Option B: Production Build
+   ```bash
+   eas build -p android --profile preview
+   ```
 
-This creates a production-ready APK:
+   This will:
+   - Upload your project to EAS Build
+   - Build an Android APK
+   - Provide a download link when complete
 
-```
-eas build -p android --profile production
-```
+5. **Build an AAB (Production build)**
 
-## Step 4: Install the APK
+   ```bash
+   eas build -p android --profile production
+   ```
 
-1. After the build completes, EAS will provide a URL where you can download the APK
-2. Open the URL on your device or download to your computer and transfer to your device
-3. On your Android device, tap the APK file to install (you may need to enable "Install from Unknown Sources" in Settings)
+   This produces an app bundle suitable for Google Play Store submission.
 
-## Build Configurations
+## Building for iOS
 
-The `eas.json` file contains these build profiles:
+1. **Configure your Apple Developer account**
 
-- **preview**: Faster development build for testing
-- **production**: Optimized build for distribution
+   ```bash
+   eas credentials
+   ```
+
+   Follow the prompts to set up your Apple credentials.
+
+2. **Build for iOS simulators**
+
+   ```bash
+   eas build -p ios --profile simulator
+   ```
+
+   This creates a build for testing in iOS simulator.
+
+3. **Build for iOS devices (Production)**
+
+   ```bash
+   eas build -p ios --profile production
+   ```
+
+   This process:
+   - Requires an Apple Developer account
+   - May require registering your app's bundle identifier
+   - Creates a signed IPA file for TestFlight or App Store submission
 
 ## Troubleshooting
 
-- **Build fails with credential errors**: Run `eas credentials` to manage your credentials
-- **Can't install APK**: Make sure "Install from Unknown Sources" is enabled in your device settings
-- **Camera not working**: Check that your app has the proper permissions in the Android manifest
+- **Credentials errors**: Run `eas credentials` to manage app credentials
+- **Build failures**: Check the build logs in the Expo dashboard or CLI output
+- **Git issues**: Ensure your project is in a Git repository with a clean working tree
+- **App versioning**: Update the version in app.json before creating production builds
 
-## Additional Resources
-
-- [Expo EAS Documentation](https://docs.expo.dev/build/introduction/)
-- [Android App Signing](https://docs.expo.dev/app-signing/app-credentials/)
-- [Expo Development Client](https://docs.expo.dev/clients/introduction/)
+For more detailed information, visit [Expo's EAS Build documentation](https://docs.expo.dev/build/introduction/).
