@@ -156,7 +156,7 @@ Use the included build scripts to create a custom APK.
 
 ### Prerequisites
 - Android SDK installed
-- Java JDK 11 or newer
+- Java JDK 17 or newer (required for Expo SDK 50+)
 - Node.js and npm installed
 
 ### Steps
@@ -216,3 +216,6 @@ Use the included build scripts to create a custom APK.
 
 ### Need More Help?
 For specific issues not covered here, consult the [Expo documentation](https://docs.expo.dev/) or raise an issue in the project repository.
+
+### Google Play Store Compatibility
+This app now uses Expo SDK 50+ which targets Android API level 34, meeting Google Play Store requirements effective August 31, 2024. If you're building for Google Play Store submission, no additional configuration is needed for API level compatibility.
