@@ -26,6 +26,10 @@ npm run build:simple
 npx serve -s dist
 ```
 
+## Building for iOS and Android
+
+Before building, you'll need to set up your Expo account and configure the application. See our [EAS Account Setup Guide](./EAS_ACCOUNT_SETUP.md) for detailed instructions.
+
 ## Building and Installing the Android APK
 
 We provide multiple methods to build and install the app on your Android device, with detailed guides for each approach.
@@ -87,8 +91,54 @@ npm run build:simple
 npx serve -s dist
 ```
 
+## Building for iOS
+
+To build the app for iOS, you'll need an Apple Developer account. There are several ways to build for iOS:
+
+### Method 1: Using Expo Go (Development Only)
+
+1. Install Expo Go from the App Store on your iOS device
+2. Run the development server:
+```bash
+npm start
+```
+3. Scan the QR code with the iOS Camera app
+4. The app will open in Expo Go
+
+### Method 2: Using Expo EAS Build (Recommended)
+
+1. Set up your Apple Developer account and Expo account (see [EAS Account Setup Guide](./EAS_ACCOUNT_SETUP.md))
+2. Install EAS CLI:
+```bash
+npm install -g eas-cli
+```
+3. Log in to your Expo account:
+```bash
+eas login
+```
+4. Build for iOS simulator:
+```bash
+eas build -p ios --profile simulator
+```
+5. Build for iOS devices:
+```bash
+eas build -p ios --profile preview
+```
+6. Build for App Store:
+```bash
+eas build -p ios --profile production
+```
+
+### Method 3: Submit to App Store
+
+When you're ready to publish:
+```bash
+eas submit -p ios --latest
+```
+
 ## Detailed Installation Guides
 
+- [EAS Account Setup Guide](./EAS_ACCOUNT_SETUP.md) - Set up your Expo account for iOS and Android builds
 - [Android Installation Detailed Guide](./ANDROID_INSTALLATION_DETAILED.md) - Comprehensive instructions for all installation methods
 - [EAS Build Guide](./EAS_BUILD_GUIDE.md) - Step-by-step guide for building with Expo Application Services
 - [EAS Git Instructions](./EAS_GIT_INSTRUCTIONS.md) - Important steps to set up Git for EAS Build
@@ -109,20 +159,25 @@ For detailed instructions, see our [GitHub EAS Guide](./GITHUB_EAS_GUIDE.md).
 
 ```
 MediaCaptureApp/
-├── src/                   # Source code
-│   ├── components/        # UI components
-│   ├── navigation/        # Navigation config
-│   ├── utils/             # Utility functions
-│   └── assets/            # App assets
-├── .github/               # GitHub integration
-│   └── workflows/         # GitHub Actions workflows
-│       └── eas-build.yml  # EAS build workflow
-├── app.json               # Expo configuration
-├── eas.json               # EAS Build configuration
-├── build-android.sh       # Android build script
-├── build-apk.sh           # APK build script
-├── simple-build.js        # Web build script
-└── dist/                  # Build output directory
+├── src/                       # Source code
+│   ├── components/            # UI components
+│   ├── navigation/            # Navigation config
+│   ├── utils/                 # Utility functions
+│   └── assets/                # App assets
+├── .github/                   # GitHub integration
+│   └── workflows/             # GitHub Actions workflows
+│       └── eas-build.yml      # EAS build workflow
+├── app.json                   # Expo configuration
+├── eas.json                   # EAS Build configuration
+├── EAS_ACCOUNT_SETUP.md       # Expo account setup guide
+├── EAS_BUILD_GUIDE.md         # EAS build guide
+├── EAS_GIT_INSTRUCTIONS.md    # Git setup for EAS
+├── GITHUB_EAS_GUIDE.md        # GitHub integration guide
+├── ANDROID_INSTALLATION_DETAILED.md # Android installation guide
+├── build-android.sh           # Android build script
+├── build-apk.sh               # APK build script
+├── simple-build.js            # Web build script
+└── dist/                      # Build output directory
 ```
 
 ## Available Scripts
@@ -141,8 +196,12 @@ MediaCaptureApp/
 If you encounter issues:
 
 - Make sure your Android device allows installation from unknown sources
-- Check that you have the correct JDK version (11+) installed for local builds
+- Check that you have the correct JDK version (17+) installed for local builds
 - For Expo builds, ensure you're logged in to your Expo account
 - If using the development build, make sure your device and computer are on the same network
+- For iOS builds, verify your Apple Developer account is active and properly configured
+- For errors about "owner" or "appVersionSource", refer to the [EAS Account Setup Guide](./EAS_ACCOUNT_SETUP.md)
 
-For more detailed troubleshooting, see our [Android Installation Guide](./ANDROID_INSTALLATION_DETAILED.md#troubleshooting-common-issues).
+For more detailed troubleshooting:
+- Android issues: [Android Installation Guide](./ANDROID_INSTALLATION_DETAILED.md#troubleshooting-common-issues)
+- iOS and Expo issues: [EAS Account Setup Guide](./EAS_ACCOUNT_SETUP.md#common-error-solutions)
