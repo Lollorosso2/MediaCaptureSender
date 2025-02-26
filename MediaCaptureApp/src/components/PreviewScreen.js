@@ -3,12 +3,9 @@ import { StyleSheet, View, Text, TouchableOpacity, Image, Alert, ActivityIndicat
 import { Video } from 'expo-av';
 import { StatusBar } from 'expo-status-bar';
 import { Ionicons } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { submitMediaToWebhook, getFileInfo } from '../utils/api';
 import { cleanupTempMedia } from '../utils/storage';
-
-// Storage key for webhook URL
-const WEBHOOK_URL_KEY = 'media_capture_webhook_url';
+import webStorage, { WEBHOOK_URL_KEY } from '../utils/webStorage';
 
 export default function PreviewScreen({ route, navigation }) {
   const { mediaUri, mediaType, autoUpload } = route.params;

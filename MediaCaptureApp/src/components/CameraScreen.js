@@ -3,12 +3,8 @@ import { StyleSheet, View, Text, TouchableOpacity, Alert, ActivityIndicator } fr
 import { Camera } from 'expo-camera';
 import { StatusBar } from 'expo-status-bar';
 import { Ionicons } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { saveMediaToTemp } from '../utils/storage';
-
-// Settings storage keys
-const HIGH_QUALITY_KEY = 'media_capture_high_quality';
-const AUTO_UPLOAD_KEY = 'media_capture_auto_upload';
+import webStorage, { HIGH_QUALITY_KEY, AUTO_UPLOAD_KEY } from '../utils/webStorage';
 
 export default function CameraScreen({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
@@ -33,8 +29,8 @@ export default function CameraScreen({ navigation }) {
       
       // Load settings
       try {
-        const savedHighQuality = await AsyncStorage.getItem(HIGH_QUALITY_KEY);
-        const savedAutoUpload = await AsyncStorage.getItem(AUTO_UPLOAD_KEY);
+        const savedHighQuality = await webStorage.getItem(HIGH_QUALITY_KEY);
+        const savedAutoUpload = await webStorage.getItem(AUTO_UPLOAD_KEY);
         
         if (savedHighQuality) setHighQuality(savedHighQuality === 'true');
         if (savedAutoUpload) setAutoUpload(savedAutoUpload === 'true');
@@ -50,8 +46,8 @@ export default function CameraScreen({ navigation }) {
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', async () => {
       try {
-        const savedHighQuality = await AsyncStorage.getItem(HIGH_QUALITY_KEY);
-        const savedAutoUpload = await AsyncStorage.getItem(AUTO_UPLOAD_KEY);
+        const savedHighQuality = await webStorage.getItem(HIGH_QUALITY_KEY);
+        const savedAutoUpload = await webStorage.getItem(AUTO_UPLOAD_KEY);
         
         if (savedHighQuality) setHighQuality(savedHighQuality === 'true');
         if (savedAutoUpload) setAutoUpload(savedAutoUpload === 'true');
