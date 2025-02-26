@@ -13,12 +13,11 @@ import {
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Ionicons } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-// Storage keys
-const WEBHOOK_URL_KEY = 'media_capture_webhook_url';
-const HIGH_QUALITY_KEY = 'media_capture_high_quality';
-const AUTO_UPLOAD_KEY = 'media_capture_auto_upload';
+import webStorage, { 
+  WEBHOOK_URL_KEY, 
+  HIGH_QUALITY_KEY, 
+  AUTO_UPLOAD_KEY 
+} from '../utils/webStorage';
 
 export default function SettingsScreen({ navigation }) {
   // Settings state
@@ -31,9 +30,9 @@ export default function SettingsScreen({ navigation }) {
   useEffect(() => {
     const loadSettings = async () => {
       try {
-        const savedWebhookUrl = await AsyncStorage.getItem(WEBHOOK_URL_KEY);
-        const savedHighQuality = await AsyncStorage.getItem(HIGH_QUALITY_KEY);
-        const savedAutoUpload = await AsyncStorage.getItem(AUTO_UPLOAD_KEY);
+        const savedWebhookUrl = await webStorage.getItem(WEBHOOK_URL_KEY);
+        const savedHighQuality = await webStorage.getItem(HIGH_QUALITY_KEY);
+        const savedAutoUpload = await webStorage.getItem(AUTO_UPLOAD_KEY);
         
         if (savedWebhookUrl) setWebhookUrl(savedWebhookUrl);
         if (savedHighQuality) setHighQuality(savedHighQuality === 'true');
@@ -56,9 +55,9 @@ export default function SettingsScreen({ navigation }) {
     setIsSaving(true);
     
     try {
-      await AsyncStorage.setItem(WEBHOOK_URL_KEY, webhookUrl);
-      await AsyncStorage.setItem(HIGH_QUALITY_KEY, String(highQuality));
-      await AsyncStorage.setItem(AUTO_UPLOAD_KEY, String(autoUpload));
+      await webStorage.setItem(WEBHOOK_URL_KEY, webhookUrl);
+      await webStorage.setItem(HIGH_QUALITY_KEY, String(highQuality));
+      await webStorage.setItem(AUTO_UPLOAD_KEY, String(autoUpload));
       
       Alert.alert(
         'Success', 
