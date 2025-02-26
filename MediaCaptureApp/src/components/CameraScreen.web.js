@@ -2,11 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Alert, ActivityIndicator, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Ionicons } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-// Settings storage keys
-const HIGH_QUALITY_KEY = 'media_capture_high_quality';
-const AUTO_UPLOAD_KEY = 'media_capture_auto_upload';
+import webStorage, { HIGH_QUALITY_KEY, AUTO_UPLOAD_KEY } from '../utils/webStorage';
 
 // Simple web implementation of CameraScreen for file upload
 export default function CameraScreen({ navigation }) {
@@ -19,8 +15,8 @@ export default function CameraScreen({ navigation }) {
   useEffect(() => {
     const loadSettings = async () => {
       try {
-        const savedHighQuality = await AsyncStorage.getItem(HIGH_QUALITY_KEY);
-        const savedAutoUpload = await AsyncStorage.getItem(AUTO_UPLOAD_KEY);
+        const savedHighQuality = await webStorage.getItem(HIGH_QUALITY_KEY);
+        const savedAutoUpload = await webStorage.getItem(AUTO_UPLOAD_KEY);
         
         if (savedHighQuality) setHighQuality(savedHighQuality === 'true');
         if (savedAutoUpload) setAutoUpload(savedAutoUpload === 'true');

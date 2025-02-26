@@ -2,10 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image, Alert, ActivityIndicator, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Ionicons } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-// Storage key for webhook URL
-const WEBHOOK_URL_KEY = 'media_capture_webhook_url';
+import webStorage, { WEBHOOK_URL_KEY } from '../utils/webStorage';
 
 export default function PreviewScreen({ route, navigation }) {
   const { mediaUri, mediaType, webFile, autoUpload } = route.params;
@@ -28,7 +25,7 @@ export default function PreviewScreen({ route, navigation }) {
   useEffect(() => {
     const loadSettings = async () => {
       try {
-        const savedWebhookUrl = await AsyncStorage.getItem(WEBHOOK_URL_KEY);
+        const savedWebhookUrl = await webStorage.getItem(WEBHOOK_URL_KEY);
         if (savedWebhookUrl) {
           console.log('Loaded webhook URL:', savedWebhookUrl);
           setWebhookUrl(savedWebhookUrl);
