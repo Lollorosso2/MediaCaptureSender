@@ -1,0 +1,79 @@
+Using app configuration:
+{
+  "name": "Media Capture",
+  "slug": "media-capture-app",
+  "version": "1.0.0",
+  "orientation": "portrait",
+  "icon": "./src/assets/icon.png",
+  "userInterfaceStyle": "light",
+  "owner": "your-expo-account",
+  "cli": {
+    "appVersionSource": "remote"
+  },
+  "extra": {
+    "eas": {
+      "projectId": "your-project-id"
+    }
+  },
+  "assetBundlePatterns": [
+    "**/*"
+  ],
+  "ios": {
+    "supportsTablet": true,
+    "bundleIdentifier": "com.mediacapture.app"
+  },
+  "android": {
+    "adaptiveIcon": {
+      "foregroundImage": "./src/assets/adaptive-icon.png",
+      "backgroundColor": "#4A90E2"
+    },
+    "package": "com.mediacapture.app",
+    "permissions": [
+      "android.permission.CAMERA",
+      "android.permission.RECORD_AUDIO",
+      "android.permission.READ_EXTERNAL_STORAGE",
+      "android.permission.WRITE_EXTERNAL_STORAGE",
+      "android.permission.INTERNET"
+    ],
+    "versionCode": 1,
+    "targetSdkVersion": 34
+  },
+  "web": {
+    "favicon": "./src/assets/favicon.png",
+    "bundler": "metro",
+    "name": "Media Capture App",
+    "shortName": "MediaCapture",
+    "lang": "en",
+    "description": "An application for capturing and uploading media",
+    "backgroundColor": "#121212",
+    "themeColor": "#4A90E2",
+    "orientation": "portrait",
+    "splash": {
+      "image": "./src/assets/splash.png",
+      "backgroundColor": "#121212",
+      "resizeMode": "contain"
+    }
+  },
+  "plugins": [
+    [
+      "expo-camera",
+      {
+        "cameraPermission": "Allow Media Capture App to access your camera",
+        "microphonePermission": "Allow Media Capture App to access your microphone"
+      }
+    ],
+    [
+      "expo-file-system",
+      {
+        "filePermission": "Allow Media Capture App to access your files"
+      }
+    ]
+  ],
+  "sdkVersion": "50.0.0",
+  "platforms": [
+    "ios",
+    "android",
+    "web"
+  ]
+}
+Error: The value of the "extra.eas.projectId" field (your-project-id) in the app config does not match the current project id (e91f6fa3-7a94-484f-936e-2fa37d79e645). Make sure you connected your GitHub repository to the correct Expo project. Learn more: https://expo.fyi/eas-config-mismatch.

@@ -6,13 +6,13 @@
     "orientation": "portrait",
     "icon": "./src/assets/icon.png",
     "userInterfaceStyle": "light",
-    "owner": "your-expo-account",
+    "owner": "mediaappuser",
     "cli": {
       "appVersionSource": "remote"
     },
     "extra": {
       "eas": {
-        "projectId": "your-project-id"
+        "projectId": "e91f6fa3-7a94-484f-936e-2fa37d79e645"
       }
     },
     "assetBundlePatterns": [
