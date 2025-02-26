@@ -31,7 +31,7 @@ const filesToInclude = [
   'GITHUB_EAS_GUIDE.md',
   'QUICK_INSTALL.md',
   'README.md',
-  '.github/workflows/eas-build.yml',
+  '.github',
   'index.js',
   'index.web.js',
   'App.js',
