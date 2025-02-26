@@ -1,0 +1,10 @@
+<svg width="1242" height="2688" viewBox="0 0 1242 2688" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1242" height="2688" fill="#0066CC"/>
+  <rect x="321" y="1144" width="600" height="400" rx="20" fill="white"/>
+  <circle cx="521" cy="1344" r="120" fill="#0066CC"/>
+  <path d="M521 1264C477.917 1264 443 1298.92 443 1342C443 1385.08 477.917 1420 521 1420C564.083 1420 599 1385.08 599 1342C599 1298.92 564.083 1264 521 1264ZM521 1292C548.614 1292 571 1314.39 571 1342C571 1369.61 548.614 1392 521 1392C493.386 1392 471 1369.61 471 1342C471 1314.39 493.386 1292 521 1292Z" fill="white"/>
+  <circle cx="521" cy="1342" r="30" fill="white"/>
+  <rect x="721" y="1294" width="100" height="100" rx="10" fill="#0066CC"/>
+  <path d="M771 1324V1364M751 1344H791" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="621" y="1600" font-family="Arial" font-size="48" font-weight="bold" fill="black" text-anchor="middle">Media Capture</text>
+</svg>
