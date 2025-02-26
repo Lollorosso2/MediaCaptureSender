@@ -3,10 +3,14 @@ const createExpoWebpackConfigAsync = require('@expo/webpack-config');
 module.exports = async function (env, argv) {
   const config = await createExpoWebpackConfigAsync(env, argv);
 
-  // Ensure the right devServer configuration
+  // Override the devServer config
   if (config.devServer) {
+    // Force port 5000 with any host
     config.devServer.port = 5000;
-    config.devServer.host = '0.0.0.0';
+    config.devServer.allowedHosts = 'all';
+    config.devServer.headers = {
+      'Access-Control-Allow-Origin': '*'
+    };
   }
   
   return config;
