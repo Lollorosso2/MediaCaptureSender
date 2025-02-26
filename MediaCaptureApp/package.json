@@ -8,8 +8,10 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "build:android": "./build-android.sh",
-    "prebuild": "expo prebuild --clean",
-    "build:apk": "cd android && ./gradlew assembleDebug && cd .."
+    "build:apk": "./build-apk.sh",
+    "build:expo": "node expo-build.js",
+    "build:simple": "node simple-build.js",
+    "prebuild": "expo prebuild --clean"
   },
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",

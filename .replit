@@ -27,11 +27,11 @@ task = "packager.installForAll"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "cd MediaCaptureApp && npx expo export:web && serve -s web-build -l 5000"
+args = "cd MediaCaptureApp && node simple-build.js && serve -s dist -l 5000"
 waitForPort = 5000
 
 [deployment]
-run = ["sh", "-c", "cd MediaCaptureApp && npx expo export:web && serve -s web-build -l 5000"]
+run = ["sh", "-c", "cd MediaCaptureApp && node simple-build.js && serve -s dist -l 5000"]
 
 [[ports]]
 localPort = 5000
