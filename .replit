@@ -27,11 +27,11 @@ task = "packager.installForAll"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "cd MediaCaptureApp && npm install --no-audit --no-fund --legacy-peer-deps && npx expo start --web --port 5000"
+args = "cd MediaCaptureApp && npm install --no-audit --no-fund --legacy-peer-deps && npx expo start --web --port=5000 --lan"
 waitForPort = 5000
 
 [deployment]
-run = ["sh", "-c", "cd MediaCaptureApp && npm install --no-audit --no-fund --legacy-peer-deps && npx expo start --web --port 5000"]
+run = ["sh", "-c", "cd MediaCaptureApp && npm install --no-audit --no-fund --legacy-peer-deps && npx expo start --web --port=5000 --lan"]
 
 [[ports]]
 localPort = 5000
