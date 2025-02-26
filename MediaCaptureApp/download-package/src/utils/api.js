@@ -1,4 +1,3 @@
-import axios from 'axios';
 import * as FileSystem from 'expo-file-system';
 
 /**
@@ -31,7 +30,30 @@ export const submitMediaToWebhook = async (mediaUri, mediaType, webhookUrl, prog
       mimeType = fileExtension === 'mp4' ? 'video/mp4' : 'video/quicktime';
     }
     
-    // Create FormData object for file upload
+    // For development/testing purposes, simulate upload delay 
+    // Remove this in production
+    if (webhookUrl.includes('example.com')) {
+      console.log('Using example.com webhook - simulating upload');
+      return await simulateUpload(progressCallback);
+    }
+    
+    // For mobile platforms, use FileSystem.uploadAsync if available
+    if (FileSystem.uploadAsync) {
+      const uploadResult = await FileSystem.uploadAsync(webhookUrl, mediaUri, {
+        httpMethod: 'POST',
+        uploadType: FileSystem.FileSystemUploadType.MULTIPART,
+        fieldName: 'file',
+        mimeType: mimeType,
+        parameters: {
+          mediaType: mediaType,
+          timestamp: new Date().toISOString()
+        }
+      });
+      console.log('Upload successful:', uploadResult.status);
+      return JSON.parse(uploadResult.body);
+    } 
+    
+    // For web or fallback
     const formData = new FormData();
     formData.append('file', {
       uri: mediaUri,
@@ -41,30 +63,28 @@ export const submitMediaToWebhook = async (mediaUri, mediaType, webhookUrl, prog
     formData.append('mediaType', mediaType);
     formData.append('timestamp', new Date().toISOString());
     
-    // Upload progress callback configuration
-    const uploadConfig = {
+    // Submit the media file using fetch
+    const response = await fetch(webhookUrl, {
+      method: 'POST',
+      body: formData,
       headers: {
         'Content-Type': 'multipart/form-data',
-      },
-      onUploadProgress: (progressEvent) => {
-        const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-        if (progressCallback) {
-          progressCallback(percentCompleted);
-        }
-      },
-    };
+      }
+    });
     
-    // For development/testing purposes, simulate upload delay 
-    // Remove this in production
-    if (webhookUrl.includes('example.com')) {
-      console.log('Using example.com webhook - simulating upload');
-      return await simulateUpload(progressCallback);
+    if (progressCallback) {
+      // Since fetch doesn't support progress, simulate it
+      for (let i = 0; i <= 100; i += 10) {
+        progressCallback(i);
+        if (i < 100) {
+          await new Promise(resolve => setTimeout(resolve, 100));
+        }
+      }
     }
     
-    // Submit the media file
-    const response = await axios.post(webhookUrl, formData, uploadConfig);
     console.log('Upload successful:', response.status);
-    return response.data;
+    const responseData = await response.json();
+    return responseData;
   } catch (error) {
     console.error('Error submitting media:', error);
     throw error;
