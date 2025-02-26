@@ -27,6 +27,7 @@ const filesToInclude = [
   'expo-build.js',
   'ANDROID_INSTALLATION_DETAILED.md',
   'EAS_BUILD_GUIDE.md',
+  'EAS_GIT_INSTRUCTIONS.md',
   'QUICK_INSTALL.md',
   'README.md',
   'index.js',
@@ -82,6 +83,7 @@ Follow the instructions in one of these guides:
 
 - \`QUICK_INSTALL.md\` - Quickest way to run the app (using Expo Go)
 - \`EAS_BUILD_GUIDE.md\` - Build a standalone APK using Expo Application Services (recommended)
+- \`EAS_GIT_INSTRUCTIONS.md\` - Important steps to set up Git for EAS Build
 - \`ANDROID_INSTALLATION_DETAILED.md\` - Comprehensive installation guide with all methods
 
 ## Web Version
@@ -107,6 +109,7 @@ npx serve -s dist
 
 - Node.js (v18 or newer)
 - npm (v9 or newer)
+- Git (required for EAS builds)
 - For EAS builds: An Expo account (free to create)
 - For local Android builds: Android SDK and JDK 17+
 `;
