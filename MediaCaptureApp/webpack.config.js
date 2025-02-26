@@ -1,18 +1,13 @@
 const createExpoWebpackConfigAsync = require('@expo/webpack-config');
 
 module.exports = async function (env, argv) {
-  const config = await createExpoWebpackConfigAsync(
-    {
-      ...env,
-      babel: {
-        dangerouslyAddModulePathsToTranspile: ['@ui-kitten/components']
-      }
-    },
-    argv
-  );
+  const config = await createExpoWebpackConfigAsync(env, argv);
 
-  // Customize the config before returning it
-  // Add any custom webpack settings here
+  // Ensure the right devServer configuration
+  if (config.devServer) {
+    config.devServer.port = 5000;
+    config.devServer.host = '0.0.0.0';
+  }
   
   return config;
 };
