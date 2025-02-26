@@ -30,7 +30,7 @@ export default function PreviewScreen({ route, navigation }) {
       
       // Load webhook URL
       try {
-        const savedWebhookUrl = await AsyncStorage.getItem(WEBHOOK_URL_KEY);
+        const savedWebhookUrl = await webStorage.getItem(WEBHOOK_URL_KEY);
         if (savedWebhookUrl) {
           setWebhookUrl(savedWebhookUrl);
         }
