@@ -27,7 +27,7 @@ try {
   try {
     // Run the Expo web build
     console.log('Running Expo web build...');
-    execSync('npx expo export:web', { stdio: 'inherit' });
+    execSync('npx expo export --platform web', { stdio: 'inherit' });
     
     // Copy web-build to dist directory
     console.log('Copying build to dist directory...');

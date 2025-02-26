@@ -40,7 +40,7 @@ npx serve -s dist
 
 ## Requirements
 
-- Node.js (v14 or newer)
-- npm (v6 or newer)
+- Node.js (v18 or newer)
+- npm (v9 or newer)
 - For EAS builds: An Expo account (free to create)
-- For local Android builds: Android SDK and JDK 11+
+- For local Android builds: Android SDK and JDK 17+
