@@ -39,7 +39,20 @@
       "targetSdkVersion": 34
     },
     "web": {
-      "favicon": "./src/assets/favicon.png"
+      "favicon": "./src/assets/favicon.png",
+      "bundler": "metro",
+      "name": "Media Capture App",
+      "shortName": "MediaCapture",
+      "lang": "en",
+      "description": "An application for capturing and uploading media",
+      "backgroundColor": "#121212",
+      "themeColor": "#4A90E2",
+      "orientation": "portrait",
+      "splash": {
+        "image": "./src/assets/splash.png",
+        "backgroundColor": "#121212",
+        "resizeMode": "contain"
+      }
     },
     "plugins": [
       [
