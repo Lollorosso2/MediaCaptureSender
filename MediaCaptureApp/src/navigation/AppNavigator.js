@@ -3,12 +3,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import CameraScreen from '../components/CameraScreen';
 import PreviewScreen from '../components/PreviewScreen';
+import SettingsScreen from '../components/SettingsScreen';
 
 const Stack = createStackNavigator();
 
 /**
  * Main application navigator
- * Handles navigation between the camera screen and the preview screen
+ * Handles navigation between the camera screen, preview screen, and settings
  */
 export default function AppNavigator() {
   return (
@@ -19,7 +20,6 @@ export default function AppNavigator() {
           headerShown: false,
           cardStyle: { backgroundColor: 'black' },
           animationEnabled: true,
-          presentation: 'modal',
         }}
       >
         <Stack.Screen 
@@ -35,6 +35,16 @@ export default function AppNavigator() {
           options={{
             gestureEnabled: true,
             gestureDirection: 'horizontal',
+            presentation: 'modal',
+          }}
+        />
+        <Stack.Screen 
+          name="Settings" 
+          component={SettingsScreen}
+          options={{
+            gestureEnabled: true,
+            animationEnabled: true,
+            presentation: 'modal',
           }}
         />
       </Stack.Navigator>
