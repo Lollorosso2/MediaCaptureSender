@@ -66,6 +66,15 @@ try {
     .settings-info { display: flex; background-color: rgba(0, 0, 0, 0.5); border-radius: 10px; padding: 10px; margin: 15px 0; }
     .settings-text { color: #ddd; margin: 0 10px; }
     p { line-height: 1.6; }
+    .guide-section { margin-top: 40px; }
+    .guide-box { background-color: #1E1E1E; border: 1px solid #444; border-radius: 8px; padding: 15px; margin-bottom: 20px; }
+    .guide-title { color: #4A90E2; margin-top: 0; }
+    .guide-link { color: #4A90E2; text-decoration: none; }
+    .guide-link:hover { text-decoration: underline; }
+    .install-options { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 20px; }
+    .install-option { flex: 1; min-width: 250px; background-color: #2A2A2A; padding: 15px; border-radius: 8px; }
+    .install-option h3 { margin-top: 0; color: #4A90E2; }
+    .badge { display: inline-block; background-color: #4A90E2; color: white; font-size: 12px; padding: 3px 8px; border-radius: 12px; margin-left: 10px; }
   </style>
 </head>
 <body>
@@ -100,22 +109,39 @@ try {
         </div>
       </div>
       
-      <h2>Installation Guide for Android</h2>
-      <p>To install this app on your Android device, you have the following options:</p>
-      
-      <h3>Method 1: Using Expo Go (Easiest)</h3>
-      <ol>
-        <li>Install "Expo Go" from the Google Play Store</li>
-        <li>Open Expo Go and scan the developer's QR code</li>
-      </ol>
-      
-      <h3>Method 2: Build with Expo EAS</h3>
-      <ol>
-        <li>Use Expo EAS build service (requires Expo account)</li>
-        <li>Install EAS CLI: <code>npm install -g eas-cli</code></li>
-        <li>Login: <code>eas login</code></li>
-        <li>Build: <code>eas build -p android --profile preview</code></li>
-      </ol>
+      <div class="guide-section">
+        <h2>Get Media Capture App on Your Phone</h2>
+        
+        <div class="guide-box">
+          <h3 class="guide-title">Quick Install Guide <span class="badge">Recommended</span></h3>
+          <p>Get the app running on your Android device in less than 5 minutes without building an APK:</p>
+          <ol>
+            <li>Install <strong>Expo Go</strong> from the Google Play Store</li>
+            <li>Scan a QR code from the developer's computer</li>
+            <li>Start using the app immediately</li>
+          </ol>
+          <p><a href="QUICK_INSTALL.md" class="guide-link">View Quick Install Guide →</a></p>
+        </div>
+        
+        <div class="install-options">
+          <div class="install-option">
+            <h3>Build Standalone APK <span class="badge">Advanced</span></h3>
+            <p>Create a standalone APK file that can be installed on any Android device:</p>
+            <ul>
+              <li>No need for Expo Go</li>
+              <li>Requires Expo account</li>
+              <li>~15 minute build time</li>
+            </ul>
+            <p><a href="EAS_BUILD_GUIDE.md" class="guide-link">View EAS Build Guide →</a></p>
+          </div>
+          
+          <div class="install-option">
+            <h3>All Installation Methods</h3>
+            <p>Comprehensive guide covering all installation methods with troubleshooting tips.</p>
+            <p><a href="ANDROID_INSTALLATION_DETAILED.md" class="guide-link">View Complete Guide →</a></p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 

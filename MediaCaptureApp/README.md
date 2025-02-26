@@ -10,72 +10,123 @@ A cross-platform application for capturing, previewing, and uploading photos and
 - Settings for quality and auto-upload preferences
 - Compatible with Android, iOS, and web browsers
 
+## Quick Start
+
+```bash
+# Install dependencies
+npm install
+
+# Start the development server
+npm start
+
+# Build for web
+npm run build:simple
+
+# Start the web server
+npx serve -s dist
+```
+
 ## Building and Installing the Android APK
 
-### Method 1: Using the build script
+We provide multiple methods to build and install the app on your Android device, with detailed guides for each approach.
 
-1. Make sure you have JDK 11 or newer installed
-2. Clone the repository and navigate to the project directory
-3. Run the build script:
-```
-cd MediaCaptureApp
-./build-android.sh
-```
-4. Find the APK in the `dist` directory
-5. Transfer the APK to your Android device and install it
+### Method 1: Using Expo Go (Easiest, for Testing)
 
-### Method 2: Using Expo EAS Build
+1. Install Expo Go from the Google Play Store on your Android device
+2. Run the development server:
+```bash
+npm start
+```
+3. Scan the QR code with the Expo Go app
+4. The app will run directly within Expo Go
+
+### Method 2: Using Expo EAS Build (Recommended)
+
+This is the most reliable method for generating a standalone APK without complex setup.
 
 1. Install EAS CLI:
-```
+```bash
 npm install -g eas-cli
 ```
 
 2. Log in to your Expo account:
-```
+```bash
 eas login
 ```
 
-3. Configure the build:
-```
-eas build:configure
-```
-
-4. Build the APK:
-```
+3. Build the APK:
+```bash
 eas build -p android --profile preview
 ```
 
-5. Follow the prompts and download the APK when the build completes
+4. Follow the prompts and download the APK when the build completes
 
-### Method 3: Using Expo Development Build
+For a detailed walkthrough, see our [EAS Build Guide](./EAS_BUILD_GUIDE.md).
 
-1. Install Expo Go on your Android device from the Play Store
-2. Run the development server:
+### Method 3: Using Local Build Scripts
+
+For developers with Android SDK installed, you can build locally.
+
+```bash
+# Build using the standard Android build process
+./build-android.sh
+
+# Alternative simplified build method
+./build-apk.sh
 ```
-npm start
+
+## Web Version
+
+The app is also available as a web application, which can be built and deployed.
+
+```bash
+# Build the web version
+npm run build:simple
+
+# Serve the web version
+npx serve -s dist
 ```
-3. Scan the QR code with the Expo Go app on your device
 
-## Manually Installing the APK
+## Detailed Installation Guides
 
-1. Transfer the APK file to your Android device
-2. On your device, open the file manager and navigate to the APK
-3. Tap the APK file and follow the prompts to install
-4. You might need to enable "Install from Unknown Sources" in your device settings
+- [Android Installation Detailed Guide](./ANDROID_INSTALLATION_DETAILED.md) - Comprehensive instructions for all installation methods
+- [EAS Build Guide](./EAS_BUILD_GUIDE.md) - Step-by-step guide for building with Expo Application Services
+
+## Project Structure
+
+```
+MediaCaptureApp/
+├── src/                   # Source code
+│   ├── components/        # UI components
+│   ├── navigation/        # Navigation config
+│   ├── utils/             # Utility functions
+│   └── assets/            # App assets
+├── app.json               # Expo configuration
+├── eas.json               # EAS Build configuration
+├── build-android.sh       # Android build script
+├── build-apk.sh           # APK build script
+├── simple-build.js        # Web build script
+└── dist/                  # Build output directory
+```
+
+## Available Scripts
+
+- `npm start` - Start the development server
+- `npm run android` - Run on Android emulator/device
+- `npm run ios` - Run on iOS simulator/device
+- `npm run web` - Run in web browser
+- `npm run build:android` - Build for Android using local script
+- `npm run build:apk` - Build APK using simplified script
+- `npm run build:expo` - Build using Expo's build service
+- `npm run build:simple` - Build for web deployment
 
 ## Troubleshooting
 
 If you encounter issues:
 
 - Make sure your Android device allows installation from unknown sources
-- Check that you have the correct JDK version installed
+- Check that you have the correct JDK version (11+) installed for local builds
 - For Expo builds, ensure you're logged in to your Expo account
 - If using the development build, make sure your device and computer are on the same network
 
-## Development
-
-- `npm start` - Start the development server
-- `npm run android` - Run on Android emulator/device
-- `npm run ios` - Run on iOS simulator/device
-- `npm run web` - Run in web browser
+For more detailed troubleshooting, see our [Android Installation Guide](./ANDROID_INSTALLATION_DETAILED.md#troubleshooting-common-issues).
