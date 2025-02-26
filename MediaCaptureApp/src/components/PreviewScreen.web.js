@@ -2,11 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image, Alert, ActivityIndicator, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// Storage key for webhook URL
+const WEBHOOK_URL_KEY = 'media_capture_webhook_url';
 
 export default function PreviewScreen({ route, navigation }) {
-  const { mediaUri, mediaType, webFile } = route.params;
+  const { mediaUri, mediaType, webFile, autoUpload } = route.params;
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
+  const [webhookUrl, setWebhookUrl] = useState(null);
   
   const videoRef = React.useRef(null);
   
@@ -19,6 +24,31 @@ export default function PreviewScreen({ route, navigation }) {
     };
   }, [mediaUri]);
   
+  // Load webhook URL and handle auto-upload
+  useEffect(() => {
+    const loadSettings = async () => {
+      try {
+        const savedWebhookUrl = await AsyncStorage.getItem(WEBHOOK_URL_KEY);
+        if (savedWebhookUrl) {
+          console.log('Loaded webhook URL:', savedWebhookUrl);
+          setWebhookUrl(savedWebhookUrl);
+          
+          // Auto upload if requested and we have a webhook URL
+          if (autoUpload === true && !uploading) {
+            console.log('Auto-upload requested');
+            setTimeout(() => handleUpload(), 500);
+          }
+        } else {
+          console.log('No webhook URL configured');
+        }
+      } catch (error) {
+        console.error('Error loading webhook URL:', error);
+      }
+    };
+    
+    loadSettings();
+  }, [autoUpload]);
+  
   // Format file size for display
   const formatFileSize = (bytes) => {
     if (!bytes) return 'Unknown size';
@@ -29,7 +59,20 @@ export default function PreviewScreen({ route, navigation }) {
 
   // Simulate media upload with progress
   const handleUpload = () => {
-    console.log("Uploading file:", webFile?.name || "unknown file");
+    // Check if webhook URL is configured
+    if (!webhookUrl) {
+      Alert.alert(
+        'Configuration Needed', 
+        'Please configure a webhook URL in settings before uploading.',
+        [
+          { text: 'Cancel', style: 'cancel' },
+          { text: 'Go to Settings', onPress: () => navigation.navigate('Settings') }
+        ]
+      );
+      return;
+    }
+    
+    console.log("Uploading file:", webFile?.name || "unknown file", "to", webhookUrl);
     setUploading(true);
     setUploadProgress(0);
     
@@ -52,19 +95,50 @@ export default function PreviewScreen({ route, navigation }) {
         return newProgress;
       });
     }, 300);
+    
+    // Simulate occasional failure (10% chance)
+    if (Math.random() < 0.1) {
+      clearInterval(interval);
+      setTimeout(() => {
+        setUploading(false);
+        Alert.alert('Error', 'Upload failed! Please try again.');
+      }, 1000);
+    }
   };
 
   // Handle returning to camera screen
   const handleRetake = () => {
     navigation.navigate('Camera');
   };
+  
+  // Navigate to settings
+  const openSettings = () => {
+    navigation.navigate('Settings');
+  };
 
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
       
-      <View style={styles.headerContainer}>
-        <Text style={styles.headerText}>Preview</Text>
+      {/* Header with back button and settings */}
+      <View style={styles.header}>
+        <TouchableOpacity 
+          style={styles.headerButton} 
+          onPress={() => navigation.goBack()}
+          disabled={uploading}
+        >
+          <Ionicons name="arrow-back" size={24} color="white" />
+        </TouchableOpacity>
+        
+        <Text style={styles.headerTitle}>Preview</Text>
+        
+        <TouchableOpacity 
+          style={styles.headerButton} 
+          onPress={openSettings}
+          disabled={uploading}
+        >
+          <Ionicons name="settings-outline" size={24} color="white" />
+        </TouchableOpacity>
       </View>
       
       {/* Media Preview */}
@@ -110,6 +184,16 @@ export default function PreviewScreen({ route, navigation }) {
             )}
           </>
         )}
+        
+        {webhookUrl ? (
+          <Text style={styles.infoText} numberOfLines={1} ellipsizeMode="middle">
+            Webhook: {webhookUrl}
+          </Text>
+        ) : (
+          <Text style={styles.warningText}>
+            No webhook URL configured
+          </Text>
+        )}
       </View>
       
       {/* Upload Progress Indicator */}
@@ -123,7 +207,7 @@ export default function PreviewScreen({ route, navigation }) {
       {/* Action Buttons */}
       <View style={styles.actionButtonsContainer}>
         <TouchableOpacity 
-          style={[styles.actionButton, styles.cancelButton]} 
+          style={[styles.actionButton, styles.cancelButton, uploading && styles.disabledButton]} 
           onPress={handleRetake}
           disabled={uploading}
           accessibilityLabel="Cancel and return to camera"
@@ -153,16 +237,24 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#000',
   },
-  headerContainer: {
-    paddingTop: 15,
-    paddingBottom: 10,
-    backgroundColor: '#222',
+  header: {
+    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingTop: 40,
+    paddingBottom: 10,
+    paddingHorizontal: 15,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
-  headerText: {
-    color: '#4A90E2',
-    fontSize: 20,
+  headerButton: {
+    padding: 8,
+    borderRadius: 20,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+  },
+  headerTitle: {
+    fontSize: 18,
     fontWeight: 'bold',
+    color: 'white',
   },
   mediaContainer: {
     flex: 1,
@@ -184,6 +276,11 @@ const styles = StyleSheet.create({
   },
   infoText: {
     color: 'white',
+    fontSize: 14,
+    marginBottom: 5,
+  },
+  warningText: {
+    color: '#ffab00',
     fontSize: 14,
     marginBottom: 5,
   },
