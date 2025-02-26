@@ -28,8 +28,10 @@ const filesToInclude = [
   'ANDROID_INSTALLATION_DETAILED.md',
   'EAS_BUILD_GUIDE.md',
   'EAS_GIT_INSTRUCTIONS.md',
+  'GITHUB_EAS_GUIDE.md',
   'QUICK_INSTALL.md',
   'README.md',
+  '.github/workflows/eas-build.yml',
   'index.js',
   'index.web.js',
   'App.js',
@@ -84,6 +86,7 @@ Follow the instructions in one of these guides:
 - \`QUICK_INSTALL.md\` - Quickest way to run the app (using Expo Go)
 - \`EAS_BUILD_GUIDE.md\` - Build a standalone APK using Expo Application Services (recommended)
 - \`EAS_GIT_INSTRUCTIONS.md\` - Important steps to set up Git for EAS Build
+- \`GITHUB_EAS_GUIDE.md\` - How to build from your GitHub repository
 - \`ANDROID_INSTALLATION_DETAILED.md\` - Comprehensive installation guide with all methods
 
 ## Web Version
