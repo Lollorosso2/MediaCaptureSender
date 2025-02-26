@@ -35,13 +35,28 @@ Edit the `app.json` file and replace `"owner": "your-expo-account"` with your ac
 }
 ```
 
-## 5. Initialize EAS Build
+## 5. Initialize EAS Project and Build
+
+First, initialize your EAS project to get a project ID:
+
+```bash
+eas init
+```
+
+This command will:
+1. Create a project on Expo's servers
+2. Generate a unique project ID
+3. Update your app.json with this project ID
+
+After initialization, configure your build:
 
 ```bash
 eas build:configure
 ```
 
 This command will guide you through setting up the build configuration for both iOS and Android.
+
+> **Important:** After running `eas init`, you must update your app.json file with the correct projectId that was generated. Look for the `"extra": { "eas": { "projectId": "your-project-id" } }` section in app.json and replace "your-project-id" with the actual ID provided by the `eas init` command.
 
 ## 6. Configure iOS Specific Settings
 
@@ -91,6 +106,15 @@ eas build -p android --profile production
 ### Error: "The owner manifest property is required"
 - Make sure you've set the correct owner in app.json
 - Ensure you're logged in with `eas login`
+
+### Error: "The extra.eas.projectId field is missing from your app config"
+- Run `eas init` to generate a project ID
+- Make sure the projectId is correctly set in your app.json file
+- If you're using a pre-existing project, you can find your project ID in the Expo dashboard
+
+### Error: "EAS project not configured"
+- Run `eas init` to initialize your project
+- Make sure you're logged in with `eas login`
 
 ### Error: "App Version Source not set"
 - This is already configured in your app.json with "appVersionSource": "remote"

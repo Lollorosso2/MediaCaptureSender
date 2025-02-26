@@ -29,6 +29,7 @@ const filesToInclude = [
   'EAS_BUILD_GUIDE.md',
   'EAS_GIT_INSTRUCTIONS.md',
   'GITHUB_EAS_GUIDE.md',
+  'EAS_ACCOUNT_SETUP.md',
   'QUICK_INSTALL.md',
   'README.md',
   '.github',
@@ -79,12 +80,13 @@ This is the complete package for building the Media Capture App on your local ma
    npm install
    \`\`\`
 
-## Building for Android
+## Building for Android and iOS
 
 Follow the instructions in one of these guides:
 
 - \`QUICK_INSTALL.md\` - Quickest way to run the app (using Expo Go)
-- \`EAS_BUILD_GUIDE.md\` - Build a standalone APK using Expo Application Services (recommended)
+- \`EAS_ACCOUNT_SETUP.md\` - Set up your Expo account for EAS builds (including iOS)
+- \`EAS_BUILD_GUIDE.md\` - Build a standalone APK/IPA using Expo Application Services (recommended)
 - \`EAS_GIT_INSTRUCTIONS.md\` - Important steps to set up Git for EAS Build
 - \`GITHUB_EAS_GUIDE.md\` - How to build from your GitHub repository
 - \`ANDROID_INSTALLATION_DETAILED.md\` - Comprehensive installation guide with all methods

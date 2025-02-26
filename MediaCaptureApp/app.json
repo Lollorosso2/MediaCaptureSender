@@ -10,6 +10,11 @@
     "cli": {
       "appVersionSource": "remote"
     },
+    "extra": {
+      "eas": {
+        "projectId": "your-project-id"
+      }
+    },
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -27,7 +32,8 @@
         "android.permission.CAMERA",
         "android.permission.RECORD_AUDIO",
         "android.permission.READ_EXTERNAL_STORAGE",
-        "android.permission.WRITE_EXTERNAL_STORAGE"
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.INTERNET"
       ],
       "versionCode": 1,
       "targetSdkVersion": 34
@@ -49,6 +55,12 @@
           "filePermission": "Allow Media Capture App to access your files"
         }
       ]
+    ],
+    "sdkVersion": "50.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
     ]
   }
 }
