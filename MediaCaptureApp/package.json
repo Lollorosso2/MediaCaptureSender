@@ -27,7 +27,7 @@
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
     "@expo/webpack-config": "^19.0.0",
-    "@react-native-async-storage/async-storage": "1.17.11",
+    "@react-native-async-storage/async-storage": "^1.21.0",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/stack": "^6.3.20",
     "expo": "~50.0.5",
@@ -49,5 +49,8 @@
   "private": true,
   "overrides": {
     "react-native-web": "~0.19.6"
+  },
+  "resolutions": {
+    "@react-native-async-storage/async-storage": "^1.21.0"
   }
 }
