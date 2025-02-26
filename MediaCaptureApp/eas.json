@@ -1,55 +1,39 @@
 {
   "cli": {
-    "version": ">= 5.9.1",
-    "appVersionSource": "remote"
+    "version": ">= 5.2.0"
   },
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal",
-      "env": {
-        "APP_ENV": "development"
-      }
+      "distribution": "internal"
     },
     "preview": {
       "distribution": "internal",
       "android": {
         "buildType": "apk"
-      },
-      "env": {
-        "APP_ENV": "preview"
       }
     },
     "production": {
       "android": {
         "buildType": "app-bundle"
-      },
-      "env": {
-        "APP_ENV": "production"
-      }
-    },
-    "local": {
-      "android": {
-        "buildType": "apk",
-        "distribution": "internal",
-        "gradleCommand": ":app:assembleRelease",
-        "withoutCredentials": true
-      },
-      "env": {
-        "APP_ENV": "preview"
       }
     },
     "github": {
+      "distribution": "internal",
       "android": {
         "buildType": "apk",
-        "distribution": "internal",
-        "autoIncrement": true
+        "gradleCommand": ":app:assembleRelease"
       },
       "env": {
-        "APP_ENV": "preview"
+        "EXPO_PUBLIC_API_URL": "https://api.example.com"
       },
       "cache": {
-        "key": "github-{{ hashFiles('package-lock.json') }}"
+        "key": "github-v1"
+      }
+    },
+    "simulator": {
+      "ios": {
+        "simulator": true
       }
     }
   },

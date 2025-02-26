@@ -7,6 +7,7 @@ This guide explains how to set up your GitHub repository to work with EAS Build 
 1. A GitHub account
 2. An Expo account (sign up at https://expo.dev)
 3. Git installed on your computer
+4. Node.js 18+ installed
 
 ## Step 1: Create a GitHub Repository
 
@@ -39,7 +40,21 @@ git push -u origin main
 
 Replace `YOUR_USERNAME` and `YOUR_REPO_NAME` with your GitHub username and repository name.
 
-## Step 3: Connect Expo to GitHub
+## Step 3: Set Up GitHub Secrets
+
+You need to add your Expo token as a secret in your GitHub repository:
+
+1. Go to your Expo account settings: https://expo.dev/accounts/[your-username]/settings/access-tokens
+2. Create a new access token with a descriptive name (e.g., "GitHub Actions")
+3. Copy the token
+4. Go to your GitHub repository
+5. Click on "Settings" > "Secrets and variables" > "Actions"
+6. Click "New repository secret"
+7. Name: `EXPO_TOKEN`
+8. Value: Paste your Expo token
+9. Click "Add secret"
+
+## Step 4: Connect Expo to GitHub
 
 1. Go to https://expo.dev and log in to your account
 2. Click on "Projects" in the sidebar
@@ -48,30 +63,97 @@ Replace `YOUR_USERNAME` and `YOUR_REPO_NAME` with your GitHub username and repos
 5. Choose your GitHub repository from the list
 6. Click "Create"
 
-## Step 4: Start a Build from Expo Dashboard
+## Step 5: Automatic Builds with GitHub Actions
 
-1. In your Expo project dashboard, click on "Build"
-2. Choose "Android" as the platform
-3. Select "APK" for testing or "AAB" for Google Play Store
-4. Click "Start build"
+The repository includes a GitHub Actions workflow file (`.github/workflows/eas-build.yml`) that will automatically build your app when you push to the main/master branch:
 
-## Step 5: Alternative - Build using EAS CLI with GitHub Integration
+```yaml
+name: EAS Build
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - master
+jobs:
+  build:
+    name: Install and build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: npm
+          
+      - name: Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+          
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build Android APK
+        run: eas build -p android --profile github --non-interactive
+```
 
-You can also build directly from the EAS CLI, which will use your GitHub repo:
+This will:
+- Run automatically when you push to the main/master branch
+- Can also be triggered manually from the "Actions" tab in your repository
+- Build an Android APK using the "github" profile from your eas.json
 
-1. Install EAS CLI: `npm install -g eas-cli`
-2. Log in to Expo: `eas login`
-3. Configure your build: `eas build:configure`
-4. Start a build: `eas build -p android --profile preview`
+## Step 6: Start a Build Manually
 
-## Webhook Integration (Optional)
+You can start a build manually:
 
-You can set up webhooks to automatically trigger builds when you push to GitHub:
+1. Go to your GitHub repository
+2. Click on the "Actions" tab
+3. Select the "EAS Build" workflow
+4. Click "Run workflow"
+5. Select the branch to build from (usually main/master)
+6. Click "Run workflow"
 
-1. In your Expo project settings, go to "Webhooks"
-2. Create a new webhook for your GitHub repository
-3. Configure it to trigger on push to main/master branch
-4. Copy the webhook URL
-5. Add it to your GitHub repository under Settings > Webhooks
+## Step 7: Download Your Build
 
-This will allow you to automatically build a new version of your app whenever you push changes to your GitHub repository.
+Once the build is complete:
+
+1. Go to https://expo.dev and log in
+2. Go to your project
+3. Click on "Builds"
+4. Find your build and click "Download"
+
+## Advanced: Customizing the Build
+
+You can customize the build by:
+
+1. Editing the `.github/workflows/eas-build.yml` file
+2. Modifying the "github" profile in your `eas.json` file
+
+### Example: Building for both Android and iOS
+
+```yaml
+- name: Build Android APK
+  run: eas build -p android --profile github --non-interactive
+  
+- name: Build iOS
+  run: eas build -p ios --profile github --non-interactive
+```
+
+### Example: Building for Production
+
+```yaml
+- name: Build Android Production
+  run: eas build -p android --profile production --non-interactive
+```
+
+## Troubleshooting
+
+- If your build fails with credential errors, add the `--non-interactive` flag
+- For iOS builds, you'll need to add Apple credentials to your Expo account
+- If the GitHub Action fails with permission errors, check that your EXPO_TOKEN has the correct permissions
+- For authentication errors, regenerate your Expo token and update the GitHub secret

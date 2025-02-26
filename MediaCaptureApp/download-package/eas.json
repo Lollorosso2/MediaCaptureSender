@@ -38,6 +38,19 @@
       "env": {
         "APP_ENV": "preview"
       }
+    },
+    "github": {
+      "android": {
+        "buildType": "apk",
+        "distribution": "internal",
+        "autoIncrement": true
+      },
+      "env": {
+        "APP_ENV": "preview"
+      },
+      "cache": {
+        "key": "github-{{ hashFiles('package-lock.json') }}"
+      }
     }
   },
   "submit": {

@@ -91,6 +91,19 @@ npx serve -s dist
 
 - [Android Installation Detailed Guide](./ANDROID_INSTALLATION_DETAILED.md) - Comprehensive instructions for all installation methods
 - [EAS Build Guide](./EAS_BUILD_GUIDE.md) - Step-by-step guide for building with Expo Application Services
+- [EAS Git Instructions](./EAS_GIT_INSTRUCTIONS.md) - Important steps to set up Git for EAS Build
+- [GitHub EAS Guide](./GITHUB_EAS_GUIDE.md) - How to build from your GitHub repository
+
+## Building from GitHub
+
+You can also build this app directly from a GitHub repository using Expo's GitHub integration:
+
+1. Push this code to your GitHub repository
+2. Connect your Expo account to GitHub
+3. Create a new project in Expo Dashboard from your GitHub repo
+4. Start a build from the Expo Dashboard or using the included GitHub Actions workflow
+
+For detailed instructions, see our [GitHub EAS Guide](./GITHUB_EAS_GUIDE.md).
 
 ## Project Structure
 
@@ -101,6 +114,9 @@ MediaCaptureApp/
 │   ├── navigation/        # Navigation config
 │   ├── utils/             # Utility functions
 │   └── assets/            # App assets
+├── .github/               # GitHub integration
+│   └── workflows/         # GitHub Actions workflows
+│       └── eas-build.yml  # EAS build workflow
 ├── app.json               # Expo configuration
 ├── eas.json               # EAS Build configuration
 ├── build-android.sh       # Android build script
