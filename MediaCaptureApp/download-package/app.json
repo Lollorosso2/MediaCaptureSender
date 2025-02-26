@@ -6,6 +6,10 @@
     "orientation": "portrait",
     "icon": "./src/assets/icon.png",
     "userInterfaceStyle": "light",
+    "owner": "your-expo-account",
+    "cli": {
+      "appVersionSource": "remote"
+    },
     "assetBundlePatterns": [
       "**/*"
     ],
